@@ -109,6 +109,7 @@ public class PlaylistClient
                 cancellationToken
             );
 
+
             var videos = new List<PlaylistVideo>();
 
             foreach (var videoExtractor in playlistExtractor.GetVideos())
@@ -122,6 +123,122 @@ public class PlaylistClient
                 lastVideoIndex =
                     videoExtractor.TryGetIndex() ??
                     throw new YoutubeExplodeException("Could not extract video index.");
+
+                // Don't yield the same video twice
+                if (!encounteredIds.Add(videoId))
+                    continue;
+
+                var videoTitle =
+                    videoExtractor.TryGetVideoTitle() ??
+                    throw new YoutubeExplodeException("Could not extract video title.");
+
+                var videoChannelTitle =
+                    videoExtractor.TryGetVideoAuthor() ??
+                    throw new YoutubeExplodeException("Could not extract video author.");
+
+                var videoChannelId =
+                    videoExtractor.TryGetVideoChannelId() ??
+                    throw new YoutubeExplodeException("Could not extract video channel ID.");
+
+                var duration = videoExtractor.TryGetVideoDuration();
+
+                var viewCount = videoExtractor.TryGetVideoViewCount();
+
+                var thumbnails = videoExtractor
+                    .GetVideoThumbnails()
+                    .Select(t =>
+                    {
+                        var thumbnailUrl =
+                            t.TryGetUrl() ??
+                            throw new YoutubeExplodeException("Could not extract thumbnail URL.");
+
+                        var thumbnailWidth =
+                            t.TryGetWidth() ??
+                            throw new YoutubeExplodeException("Could not extract thumbnail width.");
+
+                        var thumbnailHeight =
+                            t.TryGetHeight() ??
+                            throw new YoutubeExplodeException("Could not extract thumbnail height.");
+
+                        var thumbnailResolution = new Resolution(thumbnailWidth, thumbnailHeight);
+
+                        return new Thumbnail(thumbnailUrl, thumbnailResolution);
+                    })
+                    .Concat(Thumbnail.GetDefaultSet(videoId))
+                    .ToArray();
+
+                var video = new PlaylistVideo(
+                    playlistId,
+                    videoId,
+                    videoTitle,
+                    new Author(videoChannelId, videoChannelTitle),
+                    duration,
+                    thumbnails,
+                    viewCount
+                );
+
+                videos.Add(video);
+            }
+
+            // Stop extracting if there are no new videos
+            if (!videos.Any())
+                break;
+
+            yield return Batch.Create(videos);
+
+            visitorData ??= playlistExtractor.TryGetVisitorData();
+        } while (true);
+    }
+
+    /// <summary>
+    /// Enumerates videos included in the specified playlist.
+    /// </summary>
+    public IAsyncEnumerable<PlaylistVideo> GetVideosAsync(
+        PlaylistId playlistId,
+        CancellationToken cancellationToken = default) =>
+        GetVideoBatchesAsync(playlistId, cancellationToken).FlattenAsync();
+
+    //
+    public async IAsyncEnumerable<Batch<PlaylistVideo>> GetVideoBatchesNewAsync(
+        PlaylistId playlistId,
+        [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        var encounteredIds = new HashSet<VideoId>();
+        string? clickTracking = null;
+        string? continuation = null;
+
+        IPlaylisBrowsertExtractor? playlistExtractor = null;
+        bool isFirstPage = true;
+
+        do
+        {
+            if (isFirstPage)
+            {
+                playlistExtractor = await _controller.GetPlaylistBrowseResponseAsync(playlistId);
+                isFirstPage = false;
+            }
+            else
+            {
+                playlistExtractor = await _controller.GetPlaylistNextResponseNewAsync(
+                    playlistId, clickTracking, continuation,
+                    cancellationToken
+                );
+            }
+            string? oldclickTracking = clickTracking;
+            string? oldcontinuation = continuation;
+            clickTracking =
+                playlistExtractor.TryGetClickTracking();
+
+            continuation =
+                playlistExtractor.TryGetToken();
+
+            var videos = new List<PlaylistVideo>();
+
+            foreach (var videoExtractor in playlistExtractor.GetVideos())
+            {
+                var videoId =
+                    videoExtractor.TryGetVideoId() ??
+                    throw new YoutubeExplodeException("Could not extract video ID.");
 
                 // Don't yield the same video twice
                 if (!encounteredIds.Add(videoId))
@@ -164,13 +281,15 @@ public class PlaylistClient
                     .Concat(Thumbnail.GetDefaultSet(videoId))
                     .ToArray();
 
+                var viewCount = videoExtractor.TryGetVideoViewCount();
                 var video = new PlaylistVideo(
                     playlistId,
                     videoId,
                     videoTitle,
                     new Author(videoChannelId, videoChannelTitle),
                     duration,
-                    thumbnails
+                    thumbnails,
+                    viewCount
                 );
 
                 videos.Add(video);
@@ -182,15 +301,17 @@ public class PlaylistClient
 
             yield return Batch.Create(videos);
 
-            visitorData ??= playlistExtractor.TryGetVisitorData();
+            // Stop if it's the last page already
+            if (clickTracking == null)
+                break;
         } while (true);
     }
 
     /// <summary>
     /// Enumerates videos included in the specified playlist.
     /// </summary>
-    public IAsyncEnumerable<PlaylistVideo> GetVideosAsync(
+    public IAsyncEnumerable<PlaylistVideo> GetVideosNewAsync(
         PlaylistId playlistId,
         CancellationToken cancellationToken = default) =>
-        GetVideoBatchesAsync(playlistId, cancellationToken).FlattenAsync();
+        GetVideoBatchesNewAsync(playlistId, cancellationToken).FlattenAsync();
 }

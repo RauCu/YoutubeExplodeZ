@@ -79,6 +79,8 @@ public class SearchClient
 
                 thumbnails.AddRange(Thumbnail.GetDefaultSet(id));
 
+                var viewCount = videoExtractor.TryGetVideoViewCount() ?? "0";
+
                 foreach (var thumbnailExtractor in videoExtractor.GetVideoThumbnails())
                 {
                     var thumbnailUrl =
@@ -103,7 +105,8 @@ public class SearchClient
                     title,
                     new Author(channelId, channelTitle),
                     duration,
-                    thumbnails
+                    thumbnails,
+                    viewCount
                 );
 
                 results.Add(video);

@@ -14,3 +14,11 @@ internal interface IPlaylistExtractor
 
     IReadOnlyList<ThumbnailExtractor> GetPlaylistThumbnails();
 }
+
+internal interface IPlaylisBrowsertExtractor : IPlaylistExtractor
+{
+    string? TryGetClickTracking();
+
+    string? TryGetToken();
+    public IReadOnlyList<PlaylistVideoExtractor> GetVideos();
+}

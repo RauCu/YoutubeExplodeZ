@@ -20,6 +20,9 @@ public class Video : IVideo
     public string Title { get; }
 
     /// <inheritdoc />
+    public string ViewCount{ get; }
+
+    /// <inheritdoc />
     public Author Author { get; }
 
     /// <summary>
@@ -59,6 +62,7 @@ public class Video : IVideo
         string description,
         TimeSpan? duration,
         IReadOnlyList<Thumbnail> thumbnails,
+        string viewCount,
         IReadOnlyList<string> keywords,
         Engagement engagement)
     {
@@ -69,6 +73,7 @@ public class Video : IVideo
         Description = description;
         Duration = duration;
         Thumbnails = thumbnails;
+        ViewCount = viewCount;
         Keywords = keywords;
         Engagement = engagement;
     }

@@ -81,6 +81,15 @@ internal class SearchResultVideoExtractor
             .ParseTimeSpanOrNull(DurationFormats)
     );
 
+    public string? TryGetVideoViewCount() => Memo.Cache(this, () =>
+    _content
+        .GetPropertyOrNull("stats")?
+        .EnumerateArrayOrNull()?
+        .ElementAtOrNull(1)?
+        .GetPropertyOrNull("simpleText")?
+        .GetStringOrNull()
+    );
+
     public IReadOnlyList<ThumbnailExtractor> GetVideoThumbnails() => Memo.Cache(this, () =>
         _content
             .GetPropertyOrNull("thumbnail")?

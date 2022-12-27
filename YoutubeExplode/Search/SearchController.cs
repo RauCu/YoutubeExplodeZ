@@ -37,7 +37,7 @@ internal class SearchController : YoutubeControllerBase
                 client = new
                 {
                     clientName = "WEB",
-                    clientVersion = "2.20210408.08.00",
+                    clientVersion = "2.20221220.09.00",
                     hl = "en",
                     gl = "US",
                     utcOffsetMinutes = 0

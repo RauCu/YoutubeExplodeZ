@@ -29,10 +29,9 @@ internal class PlaylistController : YoutubeControllerBase
                 client = new
                 {
                     clientName = "WEB",
-                    clientVersion = "2.20210408.08.00",
+                    clientVersion = "2.20221220.09.00",
                     hl = "en",
-                    gl = "US",
-                    utcOffsetMinutes = 0
+                    gl = "US"
                 }
             }
         };
@@ -72,7 +71,7 @@ internal class PlaylistController : YoutubeControllerBase
                 client = new
                 {
                     clientName = "WEB",
-                    clientVersion = "2.20210408.08.00",
+                    clientVersion = "2.20221220.09.00",
                     hl = "en",
                     gl = "US",
                     utcOffsetMinutes = 0,
@@ -101,4 +100,49 @@ internal class PlaylistController : YoutubeControllerBase
         PlaylistId playlistId,
         CancellationToken cancellationToken = default) =>
         await GetPlaylistNextResponseAsync(playlistId, null, 0, null, cancellationToken);
+
+    public async ValueTask<PlaylistBrowseResponseNewExtractor> GetPlaylistNextResponseNewAsync(
+        PlaylistId playlistId,
+        string? clickTrackingValue,
+        string? continuationValue,
+        CancellationToken cancellationToken = default)
+    {
+        const string url = $"https://www.youtube.com/youtubei/v1/browse?key={ApiKey}";
+
+        var payload = new
+        {
+            clickTracking = clickTrackingValue,
+            continuation = continuationValue,
+            context = new
+            {
+                client = new
+                {
+                    clientName = "WEB",
+                    clientVersion = "2.20221220.09.00",
+                    hl = "en",
+                    gl = "US"
+                }
+            }
+        };
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, url)
+        {
+            Content = Json.SerializeToHttpContent(payload)
+        };
+
+        var raw = await SendHttpRequestAsync(request, cancellationToken);
+        var playlistResponse = PlaylistBrowseResponseNewExtractor.Create(raw);
+
+        if (!playlistResponse.IsPlaylistAvailable())
+        {
+            throw new PlaylistUnavailableException($"Playlist '{playlistId}' is not available.");
+        }
+
+        return playlistResponse;
+    }
+
+    public async ValueTask<PlaylistBrowseResponseNewExtractor> GetPlaylistNextResponseNewAsync(
+        PlaylistId playlistId,
+        CancellationToken cancellationToken = default) =>
+        await GetPlaylistNextResponseNewAsync(playlistId, null, null, cancellationToken);
 }

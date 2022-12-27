@@ -20,6 +20,8 @@ public class VideoSearchResult : ISearchResult, IVideo
     /// <inheritdoc cref="IVideo.Title" />
     public string Title { get; }
 
+    public string ViewCount { get; }
+
     /// <inheritdoc />
     public Author Author { get; }
 
@@ -37,13 +39,15 @@ public class VideoSearchResult : ISearchResult, IVideo
         string title,
         Author author,
         TimeSpan? duration,
-        IReadOnlyList<Thumbnail> thumbnails)
+        IReadOnlyList<Thumbnail> thumbnails,
+        string viewCount)
     {
         Id = id;
         Title = title;
         Author = author;
         Duration = duration;
         Thumbnails = thumbnails;
+        ViewCount = viewCount;
     }
 
     /// <inheritdoc />

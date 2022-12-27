@@ -25,6 +25,8 @@ public class PlaylistVideo : IVideo, IBatchItem
     /// <inheritdoc />
     public string Title { get; }
 
+    public string ViewCount { get; }
+
     /// <inheritdoc />
     public Author Author { get; }
 
@@ -43,7 +45,8 @@ public class PlaylistVideo : IVideo, IBatchItem
         string title,
         Author author,
         TimeSpan? duration,
-        IReadOnlyList<Thumbnail> thumbnails)
+        IReadOnlyList<Thumbnail> thumbnails,
+        string viewCount)
     {
         PlaylistId = playlistId;
         Id = id;
@@ -51,6 +54,7 @@ public class PlaylistVideo : IVideo, IBatchItem
         Author = author;
         Duration = duration;
         Thumbnails = thumbnails;
+        ViewCount = viewCount;
     }
 
     /// <summary>
@@ -63,8 +67,9 @@ public class PlaylistVideo : IVideo, IBatchItem
         string title,
         Author author,
         TimeSpan? duration,
-        IReadOnlyList<Thumbnail> thumbnails)
-        : this(default, id, title, author, duration, thumbnails)
+        IReadOnlyList<Thumbnail> thumbnails,
+        string viewCount)
+        : this(default, id, title, author, duration, thumbnails, viewCount)
     {
     }
 

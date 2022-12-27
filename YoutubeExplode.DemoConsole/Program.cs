@@ -18,7 +18,30 @@ public static class Program
         var youtube = new YoutubeClient();
 
         // Get the video ID
-        Console.Write("Enter YouTube video ID or URL: ");
+        Console.Write("Testing get all videos of a channel with view count! \n");
+        int counter = 0;
+        await foreach (var batch in youtube.Playlists.GetVideoBatchesNewAsync(
+            "https://www.youtube.com/playlist?list=UUT2X19JJaJGUN7mrYuImANQ"
+            //"https://www.youtube.com/playlist?list=PLMNTgm9tMGhLlG8gbVCH33RvubZpnj7hG"
+        ))
+        {
+            foreach (var video in batch.Items)
+            {
+                var id = video.Id;
+                var title = video.Title;
+                var author = video.Author;
+                var duration = video.Duration.ToString();
+                var viewCount = video.ViewCount;
+
+                Console.Write(
+                    $" {++counter} --> '{viewCount} views': '{id}': '{title}' \n"
+                );
+                //if (counter == 1) break;
+            }
+            //if (counter == 1) break;
+        }
+
+        /*
         var videoId = VideoId.Parse(Console.ReadLine() ?? "");
 
         // Get available streams and choose the best muxed (audio + video) stream
@@ -45,5 +68,6 @@ public static class Program
 
         Console.WriteLine("Done");
         Console.WriteLine($"Video saved to '{fileName}'");
+        */
     }
 }

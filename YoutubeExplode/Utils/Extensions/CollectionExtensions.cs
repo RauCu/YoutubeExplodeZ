@@ -40,4 +40,14 @@ internal static class CollectionExtensions
 
         return null;
     }
+
+    public static T? LastOrNull<T>(this IEnumerable<T> source) where T : struct
+    {
+        foreach (var i in source.Reverse())
+        {
+            return i;
+        }
+
+        return null;
+    }
 }

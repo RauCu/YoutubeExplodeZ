@@ -72,6 +72,51 @@ internal class PlaylistVideoExtractor
             .GetStringOrNull()
     );
 
+    public string? TryGetVideoTitleLong() => Memo.Cache(this, () =>
+        _content
+            .GetPropertyOrNull("title")?
+            .GetPropertyOrNull("accessibility")?
+            .GetPropertyOrNull("accessibilityData")?
+            .GetPropertyOrNull("label")?
+            .GetStringOrNull()?.Trim()
+    );
+
+    public string TryGetVideoViewCount() => Memo.Cache(this, () =>
+    {
+        string viewCount = "0";
+        string? titleLong = TryGetVideoTitleLong();
+        if (titleLong != null)
+        {
+            string[] words = titleLong.Split(' ');
+            if (words[words.Length - 1].Equals("views"))
+            {
+                viewCount = words[^2].Replace(",", "");
+            }
+        }
+        return viewCount;
+    });
+
+    public string? TryGetVideoViewCountShort() => Memo.Cache(this, () =>
+    {
+        string? viewCount = _content
+            .GetPropertyOrNull("videoInfo")?
+            .GetPropertyOrNull("runs")?
+            .EnumerateArrayOrNull()?
+            .ElementAtOrNull(0)?
+            .GetPropertyOrNull("text")?
+            .GetStringOrNull();
+
+        if (viewCount != null) {
+            viewCount= viewCount.Replace("views", "lượt xem").Replace("K", " ngàn").Replace("M", " triệu").Replace("B", " tỷ");
+        }
+        else
+        {
+            viewCount = "0";
+        }
+        return viewCount;
+    });
+
+
     public TimeSpan? TryGetVideoDuration() => Memo.Cache(this, () =>
         _content
             .GetPropertyOrNull("lengthSeconds")?

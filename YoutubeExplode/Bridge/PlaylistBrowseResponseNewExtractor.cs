@@ -1,41 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using YoutubeExplode.Utils;
 using YoutubeExplode.Utils.Extensions;
 
 namespace YoutubeExplode.Bridge;
 
-internal partial class PlaylistBrowseResponseExtractor : IPlaylisBrowsertExtractor
+internal partial class PlaylistBrowseResponseNewExtractor : IPlaylisBrowsertExtractor
 {
     private readonly JsonElement _content;
-
-    public PlaylistBrowseResponseExtractor(JsonElement content) => _content = content;
+    public PlaylistBrowseResponseNewExtractor(JsonElement content) => _content = content;
 
     private JsonElement? TryGetPlaylistRoot() => Memo.Cache(this, () =>
         _content
-            .GetPropertyOrNull("contents")?
-            .GetPropertyOrNull("twoColumnBrowseResultsRenderer")?
-            .GetPropertyOrNull("tabs")?
+            .GetPropertyOrNull("onResponseReceivedActions")?
             .EnumerateArrayOrNull()?
             .ElementAtOrNull(0)?
-            .GetPropertyOrNull("tabRenderer")?
-            .GetPropertyOrNull("content")?
-            .GetPropertyOrNull("sectionListRenderer")?
-            .GetPropertyOrNull("contents")?
-            .EnumerateArrayOrNull()?
-            .ElementAtOrNull(0)?
-            .GetPropertyOrNull("itemSectionRenderer")?
-            .GetPropertyOrNull("contents")?
-            .EnumerateArrayOrNull()?
-            .ElementAtOrNull(0)?
-            .GetPropertyOrNull("playlistVideoListRenderer")
+            .GetPropertyOrNull("appendContinuationItemsAction")
     );
 
     public IReadOnlyList<PlaylistVideoExtractor> GetVideos() => Memo.Cache(this, () =>
         TryGetPlaylistRoot()?
-            .GetPropertyOrNull("contents")?
+            .GetPropertyOrNull("continuationItems")?
             .EnumerateArrayOrNull()?
             .Select(j => j.GetPropertyOrNull("playlistVideoRenderer"))
             .WhereNotNull()
@@ -43,6 +31,33 @@ internal partial class PlaylistBrowseResponseExtractor : IPlaylisBrowsertExtract
             .ToArray() ??
 
         Array.Empty<PlaylistVideoExtractor>()
+    );
+
+    public string? TryGetClickTracking() => Memo.Cache(this, () =>
+        TryGetPlaylistRoot()?
+            .GetPropertyOrNull("continuationItems")?
+            .EnumerateArrayOrNull()?
+            .LastOrNull()?
+            .GetPropertyOrNull("continuationItemRenderer")?
+            .GetPropertyOrNull("continuationEndpoint")?
+            .GetPropertyOrNull("clickTrackingParams")?
+            .GetStringOrNull()
+    );
+
+    public string? TryGetToken() => Memo.Cache(this, () =>
+        TryGetPlaylistRoot()?
+            .GetPropertyOrNull("continuationItems")?
+            .EnumerateArrayOrNull()?
+            .LastOrNull()?
+            .GetPropertyOrNull("continuationItemRenderer")?
+            .GetPropertyOrNull("continuationEndpoint")?
+            .GetPropertyOrNull("continuationCommand")?
+                .GetPropertyOrNull("token")?
+                .GetStringOrNull()
+    );
+
+    public string GetContinuationItemRenderer() => Memo.Cache(this, () =>
+        (TryGetClickTracking()?? "") + ";" + (TryGetToken() ?? "")
     );
 
     public bool IsPlaylistAvailable() => Memo.Cache(this, () =>
@@ -68,29 +83,6 @@ internal partial class PlaylistBrowseResponseExtractor : IPlaylisBrowsertExtract
             .EnumerateArrayOrNull()?
             .ElementAtOrNull(1)?
             .GetPropertyOrNull("playlistSidebarSecondaryInfoRenderer")
-    );
-
-    public string? TryGetClickTracking() => Memo.Cache(this, () =>
-     TryGetPlaylistRoot()?
-         .GetPropertyOrNull("contents")?
-         .EnumerateArrayOrNull()?
-         .LastOrNull()?
-         .GetPropertyOrNull("continuationItemRenderer")?
-         .GetPropertyOrNull("continuationEndpoint")?
-         .GetPropertyOrNull("clickTrackingParams")?
-         .GetStringOrNull()
-    );
-
-    public string? TryGetToken() => Memo.Cache(this, () =>
-        TryGetPlaylistRoot()?
-            .GetPropertyOrNull("contents")?
-            .EnumerateArrayOrNull()?
-            .LastOrNull()?
-            .GetPropertyOrNull("continuationItemRenderer")?
-            .GetPropertyOrNull("continuationEndpoint")?
-            .GetPropertyOrNull("continuationCommand")?
-                .GetPropertyOrNull("token")?
-                .GetStringOrNull()
     );
 
     public string? TryGetPlaylistTitle() => Memo.Cache(this, () =>
@@ -175,7 +167,7 @@ internal partial class PlaylistBrowseResponseExtractor : IPlaylisBrowsertExtract
     );
 }
 
-internal partial class PlaylistBrowseResponseExtractor
+internal partial class PlaylistBrowseResponseNewExtractor
 {
-    public static PlaylistBrowseResponseExtractor Create(string raw) => new(Json.Parse(raw));
+    public static PlaylistBrowseResponseNewExtractor Create(string raw) => new(Json.Parse(raw));
 }

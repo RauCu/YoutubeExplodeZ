@@ -107,6 +107,7 @@ public class VideoClient
             description,
             duration,
             thumbnails,
+            viewCount.ToString(),
             keywords,
             new Engagement(viewCount, likeCount, dislikeCount)
         );

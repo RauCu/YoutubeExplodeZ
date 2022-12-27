@@ -25,6 +25,11 @@ public interface IVideo
     string Title { get; }
 
     /// <summary>
+    /// Video view count.
+    /// </summary>
+    string ViewCount { get; }
+
+    /// <summary>
     /// Video author.
     /// </summary>
     Author Author { get; }
