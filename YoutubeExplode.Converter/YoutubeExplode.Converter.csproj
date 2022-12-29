@@ -10,6 +10,11 @@
       Extension for YoutubeExplode that provides an interface to download and convert videos using FFmpeg
     </Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>YoutubeExplodeZ.Converter</PackageId>
+    <Authors>RauCu</Authors>
+    <Company>RauCu</Company>
+    <Copyright>Copyright (C) RauCu</Copyright>
+    <PackageProjectUrl>https://github.com/RauCu/YoutubeExplodeZ</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

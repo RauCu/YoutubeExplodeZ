@@ -1,3 +1,6 @@
+### v6.2.51 (29-Dec-2022)
+- Can get viewcount of playlist's videos
+
 ### v6.2.5 (06-Dec-2022)
 
 - Fixed an issue where empty text blocks in closed caption tracks were ignored. This makes the behavior consistent with YouTube's player, where empty closed captions are still rendered.

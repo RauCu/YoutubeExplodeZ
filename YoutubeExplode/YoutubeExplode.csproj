@@ -12,6 +12,13 @@
       Does not require an API key and does not impose usage quotas.
     </Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageId>YoutubeExplodeZ</PackageId>
+    <Company>RauCu</Company>
+    <Copyright>Copyright (C) RauCu</Copyright>
+    <PackageProjectUrl>https://github.com/RauCu/YoutubeExplodeZ</PackageProjectUrl>
+    <Product>YoutubeExplodeZ</Product>
+    <Authors>RauCu</Authors>
+    <PackageReleaseNotes>https://github.com/RauCu/YoutubeExplodeZ/blob/master/Changelog.md</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

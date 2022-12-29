@@ -1,18 +1,18 @@
-# YoutubeExplode.Converter
+# YoutubeExplodeZZ.Converter
 
-[![Version](https://img.shields.io/nuget/v/YoutubeExplode.svg)](https://nuget.org/packages/YoutubeExplode.Converter)
-[![Downloads](https://img.shields.io/nuget/dt/YoutubeExplode.svg)](https://nuget.org/packages/YoutubeExplode.Converter)
+[![Version](https://img.shields.io/nuget/v/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ.Converter)
+[![Downloads](https://img.shields.io/nuget/dt/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ.Converter)
 
-**YoutubeExplode.Converter** is an extension package for **YoutubeExplode** that provides capabilities for downloading YouTube videos by muxing streams or converting them to other formats.
+**YoutubeExplodeZ.Converter** is an extension package for **YoutubeExplodeZ** that provides capabilities for downloading YouTube videos by muxing streams or converting them to other formats.
 This package relies on [FFmpeg](https://ffmpeg.org) under the hood.
 
 ## Install
 
-- 📦 [NuGet](https://nuget.org/packages/YoutubeExplode.Converter): `dotnet add package YoutubeExplode.Converter`
+- 📦 [NuGet](https://nuget.org/packages/YoutubeExplodeZ.Converter): `dotnet add package YoutubeExplodeZ.Converter`
 
 ## Usage
 
-**YoutubeExplode.Converter** exposes its functionality by enhancing **YoutubeExplode**'s types with additional extension methods.
+**YoutubeExplodeZ.Converter** exposes its functionality by enhancing **YoutubeExplodeZ**'s types with additional extension methods.
 To use them, simply add the corresponding namespace and follow the examples below.
 
 > **Warning**:
