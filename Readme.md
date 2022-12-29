@@ -5,9 +5,6 @@
 [![Coverage](https://img.shields.io/codecov/c/github/RauCu/YoutubeExplodeZ/master)](https://codecov.io/gh/RauCu/YoutubeExplodeZ)
 [![Version](https://img.shields.io/nuget/v/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ)
 [![Downloads](https://img.shields.io/nuget/dt/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ)
-[![Discord](https://img.shields.io/discord/869237470565392384?label=discord)](https://discord.gg/2SUWKFnHSm)
-[![Donate](https://img.shields.io/badge/donate-$$$-8a2be2.svg)](https://RauCu.me/donate)
-[![Fuck Russia](https://img.shields.io/badge/fuck-russia-e4181c.svg?labelColor=000000)](https://twitter.com/RauCu/status/1495972128977571848)
 
 > 🟡 **Project status**: maintenance mode<sup>[[?]](https://github.com/RauCu/.github/blob/master/docs/project-status.md)</sup>
 
