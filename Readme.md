@@ -1,33 +1,22 @@
-# YoutubeExplode
+# YoutubeExplodeZ
 
-[![Made in Ukraine](https://img.shields.io/badge/made_in-ukraine-ffd700.svg?labelColor=0057b7)](https://vshymanskyy.github.io/StandWithUkraine)
-[![Build](https://img.shields.io/github/actions/workflow/status/Tyrrrz/YoutubeExplode/main.yml?branch=master)](https://github.com/Tyrrrz/YoutubeExplode/actions)
-[![Coverage](https://img.shields.io/codecov/c/github/Tyrrrz/YoutubeExplode/master)](https://codecov.io/gh/Tyrrrz/YoutubeExplode)
-[![Version](https://img.shields.io/nuget/v/YoutubeExplode.svg)](https://nuget.org/packages/YoutubeExplode)
-[![Downloads](https://img.shields.io/nuget/dt/YoutubeExplode.svg)](https://nuget.org/packages/YoutubeExplode)
+
+[![Build](https://img.shields.io/github/actions/workflow/status/RauCu/YoutubeExplodeZ/main.yml?branch=master)](https://github.com/RauCu/YoutubeExplodeZ/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/RauCu/YoutubeExplodeZ/master)](https://codecov.io/gh/RauCu/YoutubeExplodeZ)
+[![Version](https://img.shields.io/nuget/v/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ)
+[![Downloads](https://img.shields.io/nuget/dt/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ)
 [![Discord](https://img.shields.io/discord/869237470565392384?label=discord)](https://discord.gg/2SUWKFnHSm)
-[![Donate](https://img.shields.io/badge/donate-$$$-8a2be2.svg)](https://tyrrrz.me/donate)
-[![Fuck Russia](https://img.shields.io/badge/fuck-russia-e4181c.svg?labelColor=000000)](https://twitter.com/tyrrrz/status/1495972128977571848)
+[![Donate](https://img.shields.io/badge/donate-$$$-8a2be2.svg)](https://RauCu.me/donate)
+[![Fuck Russia](https://img.shields.io/badge/fuck-russia-e4181c.svg?labelColor=000000)](https://twitter.com/RauCu/status/1495972128977571848)
 
-> 🟡 **Project status**: maintenance mode<sup>[[?]](https://github.com/Tyrrrz/.github/blob/master/docs/project-status.md)</sup>
+> 🟡 **Project status**: maintenance mode<sup>[[?]](https://github.com/RauCu/.github/blob/master/docs/project-status.md)</sup>
 
-**YoutubeExplode** is a library that provides an interface to query metadata of YouTube videos, playlists and channels, as well as to resolve and download video streams and closed caption tracks.
+**YoutubeExplodeZ** is a library that provides an interface to query metadata of YouTube videos, playlists and channels, as well as to resolve and download video streams and closed caption tracks.
 Behind a layer of abstraction, this library works by scraping raw page data and exploiting reverse-engineered internal endpoints.
-
-## Terms of use<sup>[[?]](https://github.com/Tyrrrz/.github/blob/master/docs/why-so-political.md)</sup>
-
-By using this project or its source code, for any purpose and in any shape or form, you grant your **implicit agreement** to all the following statements:
-
-- You **condemn Russia and its military aggression against Ukraine**
-- You **recognize that Russia is an occupant that unlawfully invaded a sovereign state**
-- You **support Ukraine's territorial integrity, including its claims over temporarily occupied territories of Crimea and Donbas**
-- You **reject false narratives perpetuated by Russian state propaganda**
-
-To learn more about the war and how you can help, [click here](https://tyrrrz.me). Glory to Ukraine! 🇺🇦
 
 ## Install
 
-- 📦 [NuGet](https://nuget.org/packages/YoutubeExplode): `dotnet add package YoutubeExplode`
+- 📦 [NuGet](https://nuget.org/packages/YoutubeExplodeZ): `dotnet add package YoutubeExplodeZ`
 
 ## Screenshots
 
@@ -35,7 +24,7 @@ To learn more about the war and how you can help, [click here](https://tyrrrz.me
 
 ## Usage
 
-**YoutubeExplode** exposes its functionality through a single entry point — the `YoutubeClient` class.
+**YoutubeExplodeZ** exposes its functionality through a single entry point — the `YoutubeClient` class.
 Create an instance of this class and use the provided operations on `Videos`, `Playlists`, `Channels`, and `Search` properties to send requests.
 
 ### Videos
@@ -69,7 +58,7 @@ Additionally, depending on the content of the stream, the streams are further di
 > **Warning**:
 > Muxed streams contain both audio and video, but these streams are very limited in quality (up to 720p30).
 > To download video in the highest available quality, you will need to resolve the best audio-only and video-only streams separately and then mux them together.
-> This can be accomplished by using FFmpeg together with the [**YoutubeExplode.Converter**](YoutubeExplode.Converter) package.
+> This can be accomplished by using FFmpeg together with the [**YoutubeExplodeZ.Converter**](YoutubeExplodeZ.Converter) package.
 
 You can request the manifest that lists all available streams for a particular video by calling `Videos.Streams.GetManifestAsync(...)`:
 
@@ -389,9 +378,9 @@ await foreach (var batch in youtube.Search.GetResultBatchesAsync("blender tutori
 
 ## Etymology
 
-The "Explode" in **YoutubeExplode** comes from the name of a PHP function that splits up strings, [`explode(...)`](https://www.php.net/manual/en/function.explode.php). When I was starting the development of this library, most of the reference source code I read was written in PHP, hence the inspiration for the name.
+The "Explode" in **YoutubeExplodeZ** comes from the name of a PHP function that splits up strings, [`explode(...)`](https://www.php.net/manual/en/function.explode.php). When I was starting the development of this library, most of the reference source code I read was written in PHP, hence the inspiration for the name.
 
 ## Related projects
 
-- [**YoutubeExplode.Converter**](YoutubeExplode.Converter) — provides capabilities for downloading YouTube videos with conversion to other formats, using FFmpeg.
-- [**YoutubeDownloader**](https://github.com/Tyrrrz/YoutubeDownloader) — desktop application for downloading YouTube videos, based on **YoutubeExplode**.
+- [**YoutubeExplodeZ.Converter**](YoutubeExplodeZ.Converter) — provides capabilities for downloading YouTube videos with conversion to other formats, using FFmpeg.
+- [**YoutubeDownloaderZ**](https://github.com/RauCu/YoutubeDownloaderZ) — desktop application for downloading YouTube videos, based on **YoutubeExplodeZ**.
