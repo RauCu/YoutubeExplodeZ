@@ -198,7 +198,9 @@ public class PlaylistClient
         CancellationToken cancellationToken = default) =>
         GetVideoBatchesAsync(playlistId, cancellationToken).FlattenAsync();
 
-    //
+    /// <summary>
+    /// Enumerates batches of videos included in the specified playlist with viewcount information.
+    /// </summary>
     public async IAsyncEnumerable<Batch<PlaylistVideo>> GetVideoBatchesNewAsync(
         PlaylistId playlistId,
         [EnumeratorCancellation] CancellationToken cancellationToken = default)

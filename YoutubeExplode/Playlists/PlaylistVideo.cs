@@ -25,6 +25,7 @@ public class PlaylistVideo : IVideo, IBatchItem
     /// <inheritdoc />
     public string Title { get; }
 
+    /// <inheritdoc />
     public string ViewCount { get; }
 
     /// <inheritdoc />

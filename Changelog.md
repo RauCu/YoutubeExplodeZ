@@ -1,3 +1,7 @@
+### v6.2.52 (25-Jan-2023)
+- Sync to up_stream
+- Changed to net6.0
+
 ### v6.2.51 (29-Dec-2022)
 - Can get viewcount of playlist's videos
 

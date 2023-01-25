@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Version>6.2.51</Version>
+    <Version>6.2.52</Version>
     <Company>RauCu</Company>
     <Copyright>Copyright (C) RauCu</Copyright>
     <LangVersion>latest</LangVersion>

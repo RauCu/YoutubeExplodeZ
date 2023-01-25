@@ -20,6 +20,7 @@ public class VideoSearchResult : ISearchResult, IVideo
     /// <inheritdoc cref="IVideo.Title" />
     public string Title { get; }
 
+    /// <inheritdoc />
     public string ViewCount { get; }
 
     /// <inheritdoc />

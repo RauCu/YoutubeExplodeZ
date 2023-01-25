@@ -1,6 +1,5 @@
 # YoutubeExplodeZ
 
-
 [![Build](https://img.shields.io/github/actions/workflow/status/RauCu/YoutubeExplodeZ/main.yml?branch=master)](https://github.com/RauCu/YoutubeExplodeZ/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/RauCu/YoutubeExplodeZ/master)](https://codecov.io/gh/RauCu/YoutubeExplodeZ)
 [![Version](https://img.shields.io/nuget/v/YoutubeExplodeZ.svg)](https://nuget.org/packages/YoutubeExplodeZ)
