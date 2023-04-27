@@ -8,6 +8,8 @@
   <PropertyGroup>
     <Description>Abstraction layer over YouTube's internal API</Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>YoutubeExplodeZ</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

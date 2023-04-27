@@ -24,17 +24,17 @@ internal class SearchController
                 {
                     "query": "{{searchQuery}}",
                     "params": "{{searchFilter switch
-                    {
-                        SearchFilter.Video => "EgIQAQ%3D%3D",
-                        SearchFilter.Playlist => "EgIQAw%3D%3D",
-                        SearchFilter.Channel => "EgIQAg%3D%3D",
-                        _ => null
-                    }}}",
+                {
+                    SearchFilter.Video => "EgIQAQ%3D%3D",
+                    SearchFilter.Playlist => "EgIQAw%3D%3D",
+                    SearchFilter.Channel => "EgIQAg%3D%3D",
+                    _ => null
+                }}}",
                     "continuation": "{{continuationToken}}",
                     "context": {
                         "client": {
                             "clientName": "WEB",
-                            "clientVersion": "2.20210408.08.00",
+                            "clientVersion": "2.20230425.08.00",
                             "hl": "en",
                             "gl": "US",
                             "utcOffsetMinutes": 0

@@ -27,7 +27,7 @@ internal class PlaylistController
                     "context": {
                         "client": {
                             "clientName": "WEB",
-                            "clientVersion": "2.20210408.08.00",
+                            "clientVersion": "2.20230425.08.00",
                             "hl": "en",
                             "gl": "US",
                             "utcOffsetMinutes": 0
@@ -59,7 +59,7 @@ internal class PlaylistController
         string? visitorData = null,
         CancellationToken cancellationToken = default)
     {
-        for (var retriesRemaining = 5;; retriesRemaining--)
+        for (var retriesRemaining = 5; ; retriesRemaining--)
         {
             using var request = new HttpRequestMessage(HttpMethod.Post, "https://www.youtube.com/youtubei/v1/next")
             {
@@ -72,7 +72,7 @@ internal class PlaylistController
                         "context": {
                             "client": {
                                 "clientName": "WEB",
-                                "clientVersion": "2.20210408.08.00",
+                                "clientVersion": "2.20230425.08.00",
                                 "hl": "en",
                                 "gl": "US",
                                 "utcOffsetMinutes": 0,

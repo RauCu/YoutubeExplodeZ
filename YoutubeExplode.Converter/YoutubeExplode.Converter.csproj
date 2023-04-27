@@ -11,6 +11,8 @@
     </Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageProjectUrl>https://github.com/Tyrrrz/YoutubeExplode/tree/master/YoutubeExplode.Converter</PackageProjectUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>YoutubeExplodeZ.Converter</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
